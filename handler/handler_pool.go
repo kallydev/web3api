@@ -141,7 +141,7 @@ func (i *internal) GetPool(c echo.Context) error {
 		return err
 	}
 
-	return c.JSONPretty(http.StatusOK, &response, "\t")
+	return c.JSONPretty(http.StatusOK, &response, "\x20\x20")
 }
 
 func (i *internal) buildPool(ctx context.Context, contractAddress common.Address, ethereumClient *ethclient.Client) (*model.Pool, error) {
