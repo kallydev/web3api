@@ -104,8 +104,12 @@ func (i *internal) GetPool(c echo.Context) error {
 			return err
 		}
 
-		// 1 / TVL * Fee * 365 / 1
-		poolMetric.AnnualPercentageRate = fmt.Sprintf("%s%%", decimal.NewFromInt(1).Div(poolMetric.TotalValueLocked).Mul(poolMetric.Fee).Mul(decimal.NewFromInt(365).Div(decimal.NewFromInt(1))).Shift(2).StringFixedBank(2))
+		if poolMetric.TotalValueLocked.Cmp(decimal.Zero) == 0 || poolMetric.Fee.Cmp(decimal.Zero) == 0 {
+			poolMetric.AnnualPercentageRate = "0%"
+		} else {
+			// 1 / TVL * Fee * 365 / 1
+			poolMetric.AnnualPercentageRate = fmt.Sprintf("%s%%", decimal.NewFromInt(1).Div(poolMetric.TotalValueLocked).Mul(poolMetric.Fee).Mul(decimal.NewFromInt(365).Div(decimal.NewFromInt(1))).Shift(2).StringFixedBank(2))
+		}
 
 		poolMetrics = append(poolMetrics, poolMetric)
 	}
