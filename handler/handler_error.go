@@ -11,7 +11,7 @@ type ErrorResponse struct {
 }
 
 func (i *internal) Error(err error, c echo.Context) {
-	_ = c.JSON(http.StatusInternalServerError, &ErrorResponse{
+	_ = c.JSONPretty(http.StatusInternalServerError, &ErrorResponse{
 		Error: err.Error(),
-	})
+	}, "\t")
 }
