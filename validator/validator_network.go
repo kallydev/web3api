@@ -7,7 +7,7 @@ import (
 
 func ValidateNetwork(fieldLevel validator.FieldLevel) bool {
 	switch fieldLevel.Field().String() {
-	case ethereum.NetworkEthereum, ethereum.NetworkPolygon:
+	case ethereum.NetworkEthereum, ethereum.NetworkPolygon, ethereum.NetworkOptimism, ethereum.NetworkArbitrum:
 		return true
 	default:
 		return false

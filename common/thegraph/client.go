@@ -25,6 +25,10 @@ func (c *client) GetUniswapPoolDayDataList(ctx context.Context, network string, 
 		name = "ianlapham/uniswap-v3-subgraph"
 	case ethereum.NetworkPolygon:
 		name = "ianlapham/uniswap-v3-polygon"
+	case ethereum.NetworkOptimism:
+		name = "ianlapham/optimism-post-regenesis"
+	case ethereum.NetworkArbitrum:
+		name = "ianlapham/arbitrum-dev"
 	default:
 		return nil, ethereum.ErrorUnsupportedNetwork
 	}

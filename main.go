@@ -43,6 +43,12 @@ func main() {
 			Polygon: &ethereum.Endpoint{
 				HTTP: viper.GetString("RPC_POLYGON_HTTP"),
 			},
+			Optimism: &ethereum.Endpoint{
+				HTTP: viper.GetString("RPC_OPTIMISM_HTTP"),
+			},
+			Arbitrum: &ethereum.Endpoint{
+				HTTP: viper.GetString("RPC_ARBITRUM_HTTP"),
+			},
 		},
 	})
 	if err != nil {

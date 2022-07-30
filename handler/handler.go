@@ -32,12 +32,17 @@ func New(database *pgx.Conn, ethereumConfig *ethereum.Config) (*internal, error)
 
 	handler.cache = cache.New[[]byte](store.NewRistretto(ristrettoCache))
 
-	if handler.ethereumClientMap[ethereum.NetworkEthereum], err = ethclient.Dial(ethereumConfig.Network.Ethereum.HTTP); err != nil {
-		return nil, err
+	endpoints := map[string]string{
+		ethereum.NetworkEthereum: ethereumConfig.Network.Ethereum.HTTP,
+		ethereum.NetworkPolygon:  ethereumConfig.Network.Polygon.HTTP,
+		ethereum.NetworkOptimism: ethereumConfig.Network.Optimism.HTTP,
+		ethereum.NetworkArbitrum: ethereumConfig.Network.Arbitrum.HTTP,
 	}
 
-	if handler.ethereumClientMap[ethereum.NetworkPolygon], err = ethclient.Dial(ethereumConfig.Network.Polygon.HTTP); err != nil {
-		return nil, err
+	for network, endpoint := range endpoints {
+		if handler.ethereumClientMap[network], err = ethclient.Dial(endpoint); err != nil {
+			return nil, err
+		}
 	}
 
 	return &handler, nil

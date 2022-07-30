@@ -7,4 +7,6 @@ var ErrorUnsupportedNetwork = errors.New("unsupported network")
 const (
 	NetworkEthereum = "ethereum"
 	NetworkPolygon  = "polygon"
+	NetworkOptimism = "optimism"
+	NetworkArbitrum = "arbitrum"
 )
